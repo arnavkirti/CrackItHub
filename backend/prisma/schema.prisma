@@ -12,3 +12,14 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(cuid()) @map("_id")
+  name      String
+  email     String   @unique
+  password  String
+  role      String // admin or user
+  exam      String? // jee or neet aspiraant
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

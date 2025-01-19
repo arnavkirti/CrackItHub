@@ -9,17 +9,38 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String   @id @default(cuid()) @map("_id")
-  name      String
+  id        Int   @id @default(autoincrement()) 
   email     String   @unique
   password  String
+  name      String 
   role      String // admin or user
-  exam      String? // jee or neet aspiraant
+  exam      String // jee or neet
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Test {
+  id        Int   @id @default(autoincrement()) 
+  name      String
+  exam      String // jee or neet
+  duration  Int
+  questions Question[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id        Int   @id @default(autoincrement())
+  text      String
+  options   String[]
+  answer    String
+  test      Test     @relation(fields: [testId], references: [id])
+  testId    Int   @map("test_id")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

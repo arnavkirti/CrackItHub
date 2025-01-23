@@ -4,7 +4,13 @@ import userRoutes from "./routes/user";
 import adminRoutes from "./routes/admin";
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Replace with your frontend domain
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 app.use("/api/user", userRoutes);

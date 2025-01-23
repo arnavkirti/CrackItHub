@@ -151,7 +151,7 @@ const Landing = () => {
                 </div>
               </div>
               <div>
-                {profile.role === "admin" ? (
+                {profile ? (
                   <>
                     <button className="hover:text-yellow-100 ml-5 px-4 py-2 rounded-lg transition-all duration-300">
                       Create Test
